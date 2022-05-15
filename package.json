@@ -1,0 +1,19 @@
+{
+    "name": "@zozo/common",
+    "version": "0.0.1",
+    "description": "zozo common function",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "/dist"
+    ],
+    "dependencies": {
+        "chalk": "4.1.2",
+        "nest-winston": "1.6.2",
+        "winston": "3.7.2",
+        "winston-daily-rotate-file": "4.6.1"
+    },
+    "devDependencies": {
+        "@types/node": "17.0.32"
+    }
+}
