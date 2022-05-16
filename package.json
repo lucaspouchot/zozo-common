@@ -49,6 +49,9 @@
         "!**/*.json",
         "CHANGELOG.md",
         "LICENSE",
-        "README.md"
+        "README.md",
+        "src",
+        "tsconfig.json",
+        "tsconfig.module.json"
     ]
 }
