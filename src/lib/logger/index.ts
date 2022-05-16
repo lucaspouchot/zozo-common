@@ -3,7 +3,7 @@ import * as winston from "winston";
 import 'winston-daily-rotate-file';
 import safeStringify from "fast-safe-stringify";
 import { inspect } from "util";
-import * as chalk from "chalk";
+import chalk from "chalk";
 import { ensureString } from "../utils";
 
 const levels = {
