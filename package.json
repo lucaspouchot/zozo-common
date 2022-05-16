@@ -6,6 +6,7 @@
     "typings": "dist/main/index.d.ts",
     "module": "dist/module/index.js",
     "scripts": {
+        "install": "npm run build",
         "build": "run-p build:*",
         "build:main": "tsc -p tsconfig.json",
         "build:module": "tsc -p tsconfig.module.json",
