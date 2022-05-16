@@ -28,11 +28,10 @@ const nestLikeColorScheme: Record<string, chalk.Chalk> = {
     debug: chalk.magentaBright,
 };
 
-export const logger = WinstonModule.createLogger({
-    levels: levels,
-    level: verboseLevel,
-    transports: [
-        new winston.transports.Console({
+export const logger = (name: string, option: { console: boolean; rotateFile?: { path: string; nbDay: number; }; }) => {
+    const transports: winston.transport[] = [];
+    if (option.console) {
+        transports.push(new winston.transports.Console({
             format: winston.format.combine(
                 winston.format.timestamp(),
                 winston.format.ms(),
@@ -61,7 +60,7 @@ export const logger = WinstonModule.createLogger({
                     const formattedMeta = inspect(JSON.parse(stringifiedMeta), { colors: true, depth: null, breakLength: Infinity });
 
                     return (
-                        `${color('[FFKMDA]')} ` +
+                        `${color(`[${name}]`)} ` +
                         `${chalk.yellow(level.charAt(0).toUpperCase() + level.slice(1))}\t` +
                         ('undefined' !== typeof timestamp ? `${timestamp} ` : '') +
                         ('undefined' !== typeof context
@@ -73,13 +72,15 @@ export const logger = WinstonModule.createLogger({
                     );
                 })
             ),
-        }),
-        new winston.transports.DailyRotateFile({
+        }));
+    }
+    if (option.rotateFile) {
+        transports.push(new winston.transports.DailyRotateFile({
             json: true,
-            maxFiles: '8d',
-            dirname: 'log',
+            maxFiles: `${option.rotateFile.nbDay}d`,
+            dirname: option.rotateFile.path,
             datePattern: 'YYYY-MM-DD',
-            filename: '%DATE%.ffkmda.jsonl',
+            filename: `%DATE%.${name}.jsonl`,
             format: winston.format.combine(
                 winston.format.timestamp(),
                 winston.format.ms(),
@@ -101,6 +102,12 @@ export const logger = WinstonModule.createLogger({
                     });
                 }),
             ),
-        }),
-    ],
-});
+        }));
+    }
+
+    return WinstonModule.createLogger({
+        levels: levels,
+        level: verboseLevel,
+        transports: transports,
+    });
+}
