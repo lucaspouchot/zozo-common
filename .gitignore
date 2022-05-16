@@ -3,7 +3,6 @@
 /node_modules
 
 # Logs
-test/e2e/log/*
 logs
 *.log
 npm-debug.log*
@@ -12,21 +11,8 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-# http certificates
-/certs
-
-# local conf
-.env.local
-/env/.env.local
-
 # OS
 .DS_Store
-
-# Generated Conf
-ormconfig.json
-
-# Generated Doc
-/documentation
 
 # Tests
 /coverage
